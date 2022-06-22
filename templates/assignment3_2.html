@@ -1,0 +1,54 @@
+{% extends 'Base.html' %}
+
+{% block title %}Our Employees{% endblock %}
+
+{% block main %}
+
+    <form id="empSearch" method="GET" action="/assignment3_2" >
+        <input type="text" name="name" placeholder="Emp. Name">
+        <input type="submit" value="Find">
+    </form>
+
+    {% if name %}
+        <h1> {{ name }}</h1>
+        <h2> Nickname: {{ nickname }}</h2>
+        <h2> Email: {{ email }}</h2>
+    {% endif %}
+
+    {% if message %}
+            <h3 id="empNotFound">{{ message }}</h3>
+    {% endif %}
+
+    {% if employees %}
+       <div class="container">
+            <ul>
+                {% for k, v in employees.items() %}
+                    <li><h1>{{ v["name"] }}</h1>
+                        <h3>Nickname: {{v["nickname"]}}</h3>
+                    <h3> Email: {{ v["email"] }}</h3></li>
+                {% endfor %}
+            </ul>
+       </div>
+    {% endif %}
+
+<div class="container">
+    {% if session['logedin'] %}
+        <h1 id="welcome">Welcome, {{ session['nickname'] | upper() }}</h1>
+        <form action="/log_out">
+            <input id="logout" type="submit" value="log out">
+        </form>
+    {% else %}
+        <h1>please log-in </h1>
+    {% if message2 %}
+        <h3>{{ message2 }}</h3>
+    {% endif %}
+        <h2>Login Form:</h2>
+        <form action="/assignment3_2" method="POST">
+            <input type="text" name="nickname" placeholder="Nickname">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit">
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}

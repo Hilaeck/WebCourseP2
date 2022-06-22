@@ -1,0 +1,22 @@
+{% extends 'Base.html' %}
+
+{% block title %}Our Hobbies{% endblock %}
+
+{% block main %}
+
+    <h1>Our employees like to:</h1>
+
+    <div class="container">
+        {% if hobbies %}
+        <ol>
+            {% for i in hobbies | unique(False, None) %}
+                <li><h2> {{ i | upper() | default('no hobbies', true) }}</h2></li>
+            {% endfor %}
+            {{ super() }}
+        </ol>
+        {% else %}
+            <h2> it seems like we have no hobbies... :(</h2>
+        {% endif %}
+    </div>
+
+{% endblock %}
